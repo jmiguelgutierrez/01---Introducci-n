@@ -1,0 +1,129 @@
+Lanzamos el servidor con: mongo --version
+Hay que abrir dos terminales
+
+  01 Introducción
+  Concepto de documento en MongoDB
+  3 ventajas
+     - Correspondencia con tipos nativos (objetos JS)
+     - Los arrays o documentos embebidos reducen
+       la necesidad de JOINS
+  
+  Esquemas dinámicos permiten polimorfismo
+  
+  Quitar la estructura de datos a la B.de datos
+  
+  BSON (JSON Binario)
+  - Velocidad de lectura
+  - Amplia tipos de JSON
+  Limites
+   doc BSON  < 16 megabytes
+   docs anidados < 100 niveles
+   
+   Documentos, Colecciones y Bases de Datos
+   Registro      <==> Documento
+   Tabla         <==> Colección
+   Base de Datos <==> Base de Datos
+      - Vistas de solo lectura
+      - Vistas On-demand (4.2)
+   campo _id
+   Todos los docs tendrán el campo _id y será único a nivel de colección
+   
+   - Si el campo _id no es especificado
+     cuando se inserta un doc, Mongo DB lo añade
+     como un tipo ObjectId.
+   - La mayoria de los driver crean el _id
+     como ObjectId si no se especifica
+   
+   Restricciones de _id
+   - El _id es inmutable
+   - Puede ser cualquier tipo incluido un documento excepto un array, en primer nivel
+   
+   - El _id es único a nivel de colección
+   
+   EJ:
+        _id:{
+                dni:.......
+                ciudad:....
+            }
+   SHELL
+   
+   Se arranca con el comando mongo
+   mongo --host direccion.com --port <nº port>
+   (si omitimos localhost y 27017)
+    con seguridad
+    
+    mongo --username <usuario>
+          --password <contraseña>
+          --authentication Database <nombre>
+          --host <dirección>
+          --port <nº puerto>
+          
+    Si omites la contraseña pregunta luego
+    
+    Mongo añade una 's'                 Caso de Mongus
+    Ej: usuario a usuarios
+    
+    Identicadores de colección deben
+    cumplir reglas de JavaScript
+    
+    La Shell interpreta JavaScript
+    - Formato salida pantalla
+         - Por defecto a un cursor de 20 documentos,
+           iterable con el comando it
+         - printjson (variable) permite devolver la colección completa
+         - pretty()
+         
+    JSON no soporta el undefined
+    
+    Comprobación de tipos
+       - typeof
+       - instanceof
+    Ayudas
+    Ayuda de conexión
+    mongo --help
+    Ayuda genérica
+       help
+       db.help()
+       db.coleccion.help()
+       db.metodo
+    Referencia en doc
+    
+    02 Storage
+       MMAPv1 (eliminado en 4.2)
+       WiredTiger (desde 3.2 defecto)
+       InMemory (Versión Enterprise)
+       
+    03 Operaciones CRUD
+       Método insert()
+       Sintaxis
+       db.<coleccion>.insert(
+                              <documento ó array de documentos>,
+                              {
+                                 writeConcern:<documento>,
+                                 ordered:<boolean>
+                              }
+                             )
+     Crea la colección si no existe
+     Crea _id si no se especifica para cada documento
+     Si se especifica _id debe ser único
+     
+     Metodo insertOne()
+     Síntaxis
+     db.<coleccion>.insertOne(
+                                <documento>,
+                                {
+                                  writeConcern:<documento>
+                                }
+                             )
+   
+      Metodo insertMany()
+      Sintaxis
+      db.<coleccion>.insertMany(
+                                <array de documentos>,
+                                {
+                                  writeConcern:<documento>,
+                                  ordered:<boolean>
+                                }
+                               )
+                               
+                               
