@@ -125,5 +125,13 @@ Hay que abrir dos terminales
                                   ordered:<boolean>
                                 }
                                )
-                               
+      1.- Inserción de datos
+      
+      Método save()
+      Sintaxis
+         db.<coleccion>.save(
+                              <documento>,
+                              {writeConcern:<documento>}
+                            )
+      
                                
