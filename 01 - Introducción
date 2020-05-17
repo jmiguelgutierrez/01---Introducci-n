@@ -259,4 +259,46 @@ Hay que abrir dos terminales
      donde numero|string del tipo de dato BSON
      
      Comprobación de existencia
+     {<campo>:{$exists:<boolean>}}
      
+     Método findOne()
+     db.<coleccion>.findOne(
+                              <documento_consulta>,
+                              <documento_proyección>
+                           )
+     ODM PARA RELACIONAR JAVASCRIPT CON LA BASE DE DATOS
+     
+     Métodos adicionales de lectura
+     Etapa $match de agregación
+     
+     Operadores Comparación
+     $gte $gt $lte $lt
+     
+     $eq
+     Operador de igualdad
+     {<campo>:{$eq:<valor>}}
+     Operador de no igualdad
+     {<campo>:{$ne:<valor>}}
+     
+     MONGO DB VENDRIA A SER COMO UN LENGUAJE DE MÉTODOS QUE UTILIZA JAVASCRIPT
+     
+     $in
+     {<campo>:{$in:[<valor>,....]}}
+     
+     Devuelve los documentos que incluyen alguno de los valores contenidos en el array
+     $all
+     {<campo>:{$all:[<valor>,....]}}
+        - Devuelve los documentos que incluyen al menos todos los valores contenidos en el array
+     $nin
+     Operadores lógicos
+     $and
+     {$and:[<expresion>,<expresion>,...]}
+     db.clientes.find({$and:[{clases:}$nin:["pesas","esgrima"]}},{clases: {$exists:true}}]}
+     $or
+     {$or:[<expresion>,<expresion>,....]
+     $not
+     {$not: <expresion>}
+     $nor
+     {$nor: [<expresion>,<expresion>]}
+     
+     Operadores de evaluación
