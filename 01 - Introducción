@@ -301,4 +301,22 @@ Hay que abrir dos terminales
      $nor
      {$nor: [<expresion>,<expresion>]}
      
+     EJERCICIO: COMERCIO ELECTRÓNICO Y CONVERTIRLO EN RED SOCIAL
+     Trabajando con APIs en ANGULAR por ejemplo.
+     EJ: BURGER KING
+     
      Operadores de evaluación
+     $regex (PCRE)
+     {<campo>:{$regex: /patron/,
+               $options: <options>
+              }}
+              
+     {<campo>:{$regex: "patron",
+               $options: <options>
+              }}
+              
+     {<campo>:{$regex: /patron/,
+               $options: <options>
+              }}        
+              
+    >db.interesados.insert({nombre:"Pedro",apellidos:"Gutiérrez López"})
