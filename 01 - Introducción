@@ -185,5 +185,8 @@ Hay que abrir dos terminales
       - Exige igualdad exacta en el array
         incluyendo el orden de los elementos
       
-      C
+      Consulta de un elemento en array
+      {<campo>:<elemento>}
+      - Devuelve los documentos
+      > db.clientes.find({actividades:"esgrima"})
                                
