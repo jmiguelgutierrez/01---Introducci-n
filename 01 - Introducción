@@ -189,4 +189,74 @@ Hay que abrir dos terminales
       {<campo>:<elemento>}
       - Devuelve los documentos
       > db.clientes.find({actividades:"esgrima"})
-                               
+      
+      Consulta de múltiples condiciones en array
+      {<campo>:{condiciones}}
+      - Devuelve los documentos que en el array
+        tengan elementos y cumplan las condiciones
+       
+      Consulta de un elemento que cumple multiples condiciones
+      {<campo>:{$elemMatch:{condiciones}}}
+      - Devuelve los doc. que tengan al menos
+        un elemento que cumpla todas las condiciones
+        
+      CICLO DE PRODUCCIÓN CON LÓGICA DE ESTE ESTILO
+      
+      Consulta de array con índice
+      {"<campo>.indice":<valor>}
+        -i sería entero del índice del array
+      
+      Consulta de campos en array de documentos en cualquier posición
+      {"<campo>.<campodoc>":<valor>}
+      
+      Consulta de campos en arrays de documentos en una posición determinada
+      {"<campo>.i.<campodoc>":<valor>}
+      
+      Múltiples condiciones en array de documentos
+      {<campo>:{$elemMatch: {condiciones}}}
+      
+      Múltiples condiciones en array de documentos con uno o varios documentos
+      {
+        "<campo>.<campodoc>":<valor>,
+        ....
+      }
+      >db.monitores.find({"actividades.clase":"aerobic","actividades.turno":"mañana"})Ç
+      Proyección de todos los campos de los documentos seleccionados.
+      Devolver los campos especificados y el campo _id
+      {campo1: 1, campo2: 1,.....}
+      
+      Si no tiene un campo de los dos introducidos
+      también te lo devuelve.
+                               _____________________________________________________
+      
+      Exclusión del campo _id
+      {...,_id:0,...}
+      También
+      >db.clientes.find({},{nombre:true, apellidos:true, _id:false})
+      
+      Devolver todos menos los que excluyamos
+      {campo1: 0, campo2:0,....}
+      Devolución de campos de documentos embebidos
+      {...,"<campo>.<campodoc>":1,....}
+      Devolución de elementos especificos de un array
+      
+      Proyección de campos
+      - {},{<campo>:1} para incluir
+      - {},{<campo>:0} para excluir
+      - No se puede incluir y excluir en el mismo doc. de proy. salvo el campo _id.
+     
+     Consultas para valores null ó campos inexistentes
+     Filtro igualdad
+     {<campo>:null}
+     - Devuelve tanto los documentos con el campo valor null como que no tengan el campo
+     
+     Comprobación de tipos
+     {<campo>:{$type:<numero>}}
+     Tipo 10 es null
+     
+     Comprobación de tipos
+     {<campo>:{$type:<numero | string>}}
+     donde numero|string del tipo de dato BSON
+     
+     Comprobación de existencia
+     
