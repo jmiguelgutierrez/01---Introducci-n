@@ -134,4 +134,56 @@ Hay que abrir dos terminales
                               {writeConcern:<documento>}
                             )
       
+      Comportamiento
+         - Si incluye _id y existe ejecutar una operación de actualización
+         - Si incluye _id y no existe ejecuta una inserción
+         - Si no incluye _id ejecuta una inserción
+      
+      Operaciones de lectura (Consulta)
+      Metodo find()
+           db.<coleccion>.find()
+           
+      Especificar una condición de igualdad
+      Sintaxis
+      {<campo>:<valor>,...}
+      - Cuando haya más de un par la coma que los separa implica un AND implicito.
+      - En el caso de _id el valor debe ser ObjectId()
+      {<campo>:{$<operador>:<valor>}}
+      
+      Especificar condiciones OR
+      {$or: [{<campo1>:<valor>,...}
+             {<campo2>:<valor>,...}
+             .....
+            ]
+      }
+      
+      db.clientes.find ({_id:ObjectId("5e2ed686.....")})
+      db.clientes.find ({$or:[{nombre:"José"},
+                              {edad:{$gte:40}}]})
+      
+      Especificar tanto AND como OR
+      {
+        <campo1>:<valor>,
+        $or:[
+              {<campo2>:<valor>,....}
+              {<campo3>:<valor>,....}
+              ....
+             ]
+      }
+      
+      Consultas en documentos embebidos
+      {<campo>:<subdocumento>}
+      >db.clientes.insert({nombre:"Luis",apellidos:"Gonzalez",
+                          direccion:{calle:"Alcalá, 90",
+                          localidad:"Madrid"}})
+      
+      Consultas en campos de documentos embebidos
+      {"<campo>.<camposubd>":<valor>}
+      db.clientes.find({"dirección.localidad":"Madrid"})
+      
+      Consulta de igualdad en array
+      - Exige igualdad exacta en el array
+        incluyendo el orden de los elementos
+      
+      C
                                
