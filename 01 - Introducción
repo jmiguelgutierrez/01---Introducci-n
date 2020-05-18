@@ -490,3 +490,133 @@ Hay que abrir dos terminales
    findOneAndUpdate()
    findAndModify()
    save()
+
+   bulkwrite()
+   Operaciones de borrado
+   Método remove()
+   db.<coleccion>.remove(
+                        {documento consulta},
+                        {documento opciones}
+                       )
+   >db.foo.remove({})
+     - Borrar todos pasar doc consulta vacio
+     - Si se elimina todos los doc. la colección sigue existiendo
+   >db.libros.remove({autor:/John/})
+   >db.libros.remove({autor:/Gabriel/},{justOne:true})
+   
+   Método deleteOne()
+   db.<coleccion>.deleteOne(
+                      {doc.consulta},               Sin posibilidad de poner justOne          
+                      {doc.opciones}
+                     )
+   Método deleteMany()
+   db.<coleccion>.deleteMany(
+                       {doc.consulta}
+                       {doc.opciones}
+                      )
+  
+    Métodos adicionales de borrado
+       findOneAndDelete()
+       findAndModify()
+       bulkWrite()
+       
+    Método bulkWrite()
+    db.<coleccion>.bulkWrite(
+                      [
+                         {documento-operacion},
+                         {documento-operacion}
+                         .......
+                      ],
+                      {documento-opciones}
+                    )
+    Operaciones soportadas
+    insertOne
+    updateOne
+    updateMany
+    replaceOne
+    deleteOne
+    deleteMany
+    
+    >db.libros.bulkWrite([
+                  {insertOne:{
+                   document:{
+                   titulo:"El Sr de los Anillos", autor:"Tolkien"}}},
+                  {updateOne:{
+                              filter:{autor:/El Quijote/},
+                              update:{$set:{pais:"España"})
+                   }}])
+                   
+     ordered: true   ->   Ejecuta de manera ordenada
+     ordered: false
+     
+     Métodos de cursores
+     next() y hasNext()
+       - Pasamos una operación a una variable (no puede ser global)
+       - Iteramos toda la variable (sin el limite de 20 documentos que tienen los cursores por defecto) con hasNext()
+         para comprobar y next() paa imprimir y pasar al siguiente.
+     ________________________________________________________________________________
+     clientes = db.clientes.find()
+     while (clientes.hasNext()){
+                      printjson(clientes.next())
+                  }
+     _________________________________________________________________________________
+     registros = db.foo2.find()
+     
+     Método count()
+     db.<coleccion>.find({consulta})
+     db.<coleccion>.count()
+     
+     Método limit
+       db.clientes.find().limit(5)
+     Método skip()
+       // Para saltar
+       db.clientes.find().skip(5).limit(5)
+     Método sort
+     db.<coleccion>.find().sort(
+                        {<campo>: 1 | -1...}
+                       )
+     Método distinct()
+     Devuelve los valores distintos de un campo
+     db.<coleccion>.distinct()
+     db.clientes.distinct("apellidos") (
+                              "<campo>"
+                              {documento-consulta},
+                              {opciones}
+                            )
+     db.clientes.distinct("apellidos",{nombre:"Juan"})
+     
+     Método collation()
+     db.<coleccion>.find().collation(
+                              <documento-opciones>
+                             )
+     Introducir en las consultas un criterio de la consulta.
+     Para la parte de busqueda en string.
+     Identifica mediante un criterio MAYUSCULAS, MINUSCULAS Y ACRITICOS (Acentos,diéresis,Ç,etc)
+     
+     locale: <pais> * Obligatorio
+        - Establecer condiciones de orden de la busqueda en función del lenguaje.
+     BSON en UTF8
+     
+     locale: <codigo_pais>* Obligatorio
+     strength:1 // Ignora diacríticos y mayus/minus.
+     
+     db.interesados.find({apellidoso:"López"}).collation({locale:"es",strength:1})
+    
+     strength:2 // Solo ignora DIACRITICOS
+     strength:3 // Tiene en cuenta diacríticos y mayus/minusc
+     caseLevel: <boolean>  //defecto false-true con strength 1 a solo diacríticos
+                            - true con strength 2 se convierte en strength 3
+     caseFirst: <upper> | <lower>
+         - "upper" ordena primero las mayusculas
+         - "lower" ordena primero las minusculas
+     db.interesados.find({apellidos: "Garcia"}).sort({apellidos:1}).colletion({locale:"es",strength:1,caseFirst:"lower"})
+     
+     numericOrdering
+     Método createCollection()
+     createCollection(
+                 "<nombre-collección>"
+                 {documento opciones}
+                )
+     -collation: {documento}
+     
+     
