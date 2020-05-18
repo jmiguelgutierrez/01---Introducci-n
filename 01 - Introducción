@@ -346,4 +346,147 @@ Hay que abrir dos terminales
     db.<collection>.find({<array>:<valor>},
                           {"<array>.$":1}
                         )
+    En el archivo .dbshell guarda la información de lo que hayas mandado.
+    
+    $slice (proyección)
+    {<array>:{$slice:<contador>})
+       - Contador positivo los n primeros
+       - Contador negativo los n últimos
+       - array [skip,limit]
+    
+    Operaciones de actualización
+    Metodo update()
+    db.<colección>.update(
+              <consulta>,
+              <actualizacion>,
+              <opciones>
+              )
+    Actualización completa de un registro
+    db.<coleccion>.update(
+               <doc-consulta>,
+               <doc-completo-sin-_id>
+             )
+    Operadores de actualización
+    $set
+    {$set:{<campo>:<valor>,....}}
+    - Si el campo no existe lo crea
+    
+    Opciones upsert (update|insert)
+    Si no encuentra un registro en las condiciones de consulta lo crea.
+            Si no existe lo crea
+            Si existe lo modifica
+    $setOnInsert
+    {$setOnInsert:{<campo>:<valor>,.....}}
+       - Si no encuentra registros a actualizar
+         realiza una inserción pero si los encuentran no hace nada.
+    
+    $unset
+    {$unset:{<campo>:true}}
+    
+    $inc
+    {$inc:{<campo>:cantidad,....}}
+                     _______________________________________________
+    trigger preinsert postinsert
+    Desarrollador no es lo mismo que Administrador
+    
+    - Cuanto dinero me gasto en mis equipos y si realmente merece la pena.
+    
+    $mul
+    {$mul: {<campo>:cantidad,....}
+    $rename
+    {$rename :{<campo>:<nuevo-nombre>,....}
+    $update
+    {"<array>.$":<valor>}
+    - Cambia el valor del elemento seleccionado en la consulta
+    $[identificador]
+    {"<array>.$[identificador]":<valor>}
+    - Cambia el valor en todos los elementos identificados del array
+    {arrayFilters:[
+                    {<identificador>:<condicion>}
+                  ]}
+    __________________________________________________________________________
+    db = db.getSiblingDB("gimnasio");
+    Devuelve a db la Base de Datos biblioteca
+    
+    C:\Users\manana\mongo localhost:27017 main.js
+    Para enviar lo que hayy en main.js a la base de datos gimnasio
+    
+    main.js está en Visual Studio Code en el disco duro no en pendrive
+    Otro método
+    >load ("main.js")
+    true
+    >db.interesados.find()
+    
+    C:\Users\manana
+    >mongo localhost:27017/biblioteca main.js
+    $addToSet
+    {$addToSet:{<campo>:<valor>}}
+    - Añade el valor a un array salvo que el valor que existe.
+    $each
+    {$each:[<campo>:<valor>,...]}
+       [1,2,3]
+       [1,2,3,[4,5]]
+    - Añade los elementos de un array a otro array de uno en uno
+    $pop
+    {$pop :{<campo>:<-1|1>,....}}
+       -1 borra el primer elemento
+        1 borra el último elemento
+    $pull
+    {$pull:{<campo>:<condicion>,....}}
+      - Eliminar todos los elementos del array que cumplan la condición
+      - Si se le pasa como condición un array de valores habia que  usar
+        $in para tratarlos de manera individual.
+    $pullAll 
+        direcciones:[
+                     {calle:"tal",loc:""}
+                     { ................ }
+                    ]
+         Array de documentos
+    pull -[valores]-$in-valor- elimina todos
+    pullAll - [valores]- valor- elimina todos
+    
+    $pullAll
+       -idem pull
+       - No es necesario usar $in para tratarlos de manera individual
+    $push
+    {$push:{<campo>:<valor>}}
+    $sort:1
+      Ordena en orden ascendente
+      - Añade elementos al final del array
+      - Usa $each en el caso de añadir un array de elementos de manera individual
+      - Puede usar $sort 1|-1 (siempre con $each)
+      - Puede usar $slice para limitar un elemento de array
      
+    $slice:-3
+                         each[] sort:1 slice
+        -n ultimos
+        +n ultimos
+      - Puede usar $position para añadir los elementos en una posición determinada.
+      
+      n(indexado a cero)
+      Métodos updateOne()
+      Actualiza solo el primer elementoque encuentra
+      db.<colección>.updateOne(
+              {doc consulta},
+              {doc actualización},
+              {doc opciones}
+             )
+    Método updateMany()
+    - Actualiza todos los registros que encuentre+
+    
+    db.libros.updateMany(
+                    {},
+                    {$set:{modificadoEn: new Date()},})
+                   )
+   >for (i=0;i<100;i++){
+        db.foo.insert({_id:i,a:1})
+      }
+   >db.foo.find().count()
+   
+   Métodos adicionales de actualización
+   
+   replaceOne()
+   findOneAndReplace()
+   findOneAndUpdate()
+   findAndModify()
+   save()
