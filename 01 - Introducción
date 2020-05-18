@@ -320,3 +320,30 @@ Hay que abrir dos terminales
               }}        
               
     >db.interesados.insert({nombre:"Pedro",apellidos:"Gutiérrez López"})
+    >db.interesados.find({apellidos:{$regex: /G/}})
+     Muestra todos los interesados con apellido que comienza con G
+     Con el acento circumplejo no lo busca
+     Sin acento busca en cualquier parte
+                               ___________________________________________
+                               
+    db.interesados.find({apellidos:{$regex:/^gu/i}})
+      Muestra por indexacción el documento (registro)
+    db.interesados.find({apellidos:{$regex:/^gu}})
+    
+    La x omite los espacios en blanco
+    Opciones
+       i Case insensitive
+       x Omite espacios en blanco
+       m Identifica saltos
+       s Omite saltos añadiendo .* al patrón
+    
+    db.interesados.find(apellidos:{$regex: "Gó",$options:"m"}})
+    $comment
+    Añadir comentarios
+    
+    Operadores de proyección
+    $(projection)
+    db.<collection>.find({<array>:<valor>},
+                          {"<array>.$":1}
+                        )
+     
